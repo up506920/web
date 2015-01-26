@@ -59,7 +59,7 @@ max-width:200px;
 
 .contentright
 {
-    position:inherit;
+position: relative;
     float:right;
     margin: 0px 0px 50px 0px;
     width:73%;
@@ -125,26 +125,67 @@ list-style: none;
 .sidebar li:target > .submenu {
     height: auto;
 }
-
-
-
-
-
+.imageHover {
+	width:200px;
+	-webkit-transition: width 0.5s;
+	transition: width 0.5s;
+}
+#prodName {
+text-align: center;
+display:block;
+}
+.imageHover:hover{
+width:300px
+}
 #products section {
 height:80px;
-position: relative;
 }
 #products section > a {
 position: absolute;
 top: 0px;
 text-decoration: none;
-color:darkblue;;
+color:darkblue;
+}
+#prod1 {
+position:relative;
+}
+.inStock {
+font-weight:bold;
+color:green; 
+display:inline;
+}
+.outOfStock {
+font-weight:bold;
+color:red; 
+display:inline;
+}
+.contentright section > h2{
+position: absolute;
+top: 0px;
+text-decoration: none;
+color:black;
+margin:0px;
 }
 .productDesc{
 display:inline;
 margin-bottom:5px;
 }
-#price {
+.priceText{
+font-weight:bold;
+color:red;
+display:inline;
+}
+#priceAndBasket {
+display:inline-block;
+position:absolute;
+top:0;
+margin-left:300px;
+}
+.sameLine {
+display:inline;
+line-height:150%;
+}
+.price {
 display:inline;
 float:right;
 bottom: 0px;
