@@ -1,0 +1,26 @@
+#portalchooser ul  {
+    list-style-type: none;
+	white-space:nowrap;
+	padding:0;
+}
+#portalchooser ul> li {
+display:inline;
+min-width: 500px;
+}
+
+#portalchooser ul> li > a {
+    display: block;
+    position: relative;
+    padding: 10px;
+	margin:20px 300px;
+    color: black;
+    font: Arial, sans-serif, bold;
+	font-size:150%;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+	text-align:center;
+    background: lightblue;
+	border: 1px solid black;
+	border-radius: 25px;
+}
+#portalchooser li:hover a { background: #0066FF; }
