@@ -9,8 +9,8 @@
 	<body> 
 		<section id="container">
 		<header>
-			<h1>Company Name</h1>
-			<a href="/basket.php"><img src="lib/img/basket.png"/></a>
+			<h1><a href="index.php">Company Name</a></h1>
+			<a href="basket.php"><img src="lib/img/basket.png"/></a>
 			<span id="basketCount">0</span>
 			<form id="searchForm"> <!--Action =search.php-->
 				<input id="search" type="search" placeholder="Search...">

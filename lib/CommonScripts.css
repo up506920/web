@@ -9,6 +9,10 @@ header>h1{
     font-size:2.5em;
     float:left;
 }
+header>h1>a{
+text-decoration: none;
+color:black;
+}
 header {
 height: 100px;
 background-color: lightblue; /* make this dynamic with theme */
@@ -40,6 +44,7 @@ top:7px
 #sidebar {
 width:23%;
 max-width:200px;
+
 }
 .contentcenter
 {
@@ -137,6 +142,10 @@ display:block;
 .imageHover:hover{
 width:300px
 }
+#products h2 {
+display:block;
+text-align:center;
+}
 #products section {
 height:80px;
 }
@@ -146,7 +155,7 @@ top: 0px;
 text-decoration: none;
 color:darkblue;
 }
-#prod1 {
+#prod1, #product {
 position:relative;
 }
 .inStock {
@@ -197,9 +206,11 @@ color:red;
 h2{
 display:inline;
 }
-#products{
+#prod1{
 border-bottom:1px solid black;
+margin-bottom:30px;
 }
+
 #products>section>img{
 border-width:1px; border-style:solid;
 }
