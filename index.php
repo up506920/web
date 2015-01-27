@@ -2,6 +2,7 @@
 $title="Shop Name Here"; //pull this from the DB when installed?
 include( "include/header.php" );
 ?>
+<!--<script src='lib/products.js'> </script>-->
 <section id="content" class="contentcenter">
 <nav id="sidebar" class="contentleft">
 	<ul class="sidebar">

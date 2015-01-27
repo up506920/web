@@ -29,6 +29,7 @@
 </nav>
 <section id="salesAdmin" class="contentright">
 	<section>
+
 		<h2>Click on the links to the left to do different tasks</h2>
 	</section>
 </section>
