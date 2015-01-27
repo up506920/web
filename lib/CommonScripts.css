@@ -135,9 +135,12 @@ list-style: none;
 	-webkit-transition: width 0.5s;
 	transition: width 0.5s;
 }
-#prodName {
+.contentTitle {
 text-align: center;
 display:block;
+}
+section .hidden{
+height:0px;
 }
 .imageHover:hover{
 width:300px
@@ -154,20 +157,31 @@ visibility: hidden;
   color: #0066FF;
   font-style: italic;
 }
-#products h2 {
+#basketQuantity{
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.marginBottom {
+  margin-bottom: 1.2em;
+}
+.productlist h2 {
 display:block;
 text-align:center;
 }
-#products section {
-height:80px;
+.productlist section {
+border-bottom:1px solid black;
+background:#e5e5e5;
+max-height:100px;
 }
-#products section > a {
+.productlist section > a {
 position: absolute;
 top: 0px;
 text-decoration: none;
 color:darkblue;
 }
-#prod1, #product, #prod {
+#prod1, #product, #prod, #basket {
 position:relative;
 }
 .inStock {
@@ -187,9 +201,12 @@ text-decoration: none;
 color:black;
 margin:0px;
 }
-.productDesc{
-display:inline;
+
+.productDesc,.shortProductDesc{
 margin-bottom:5px;
+}
+.shortProductDesc{
+display:inline;
 }
 .priceText{
 font-weight:bold;
@@ -200,7 +217,7 @@ display:inline;
 display:inline-block;
 position:absolute;
 top:0;
-margin-left:300px;
+left:300px;
 }
 .sameLine {
 display:inline;
@@ -217,11 +234,6 @@ color:red;
 }
 h2{
 display:inline;
-}
-#prod1{
-border-bottom:1px solid black;
-margin-bottom:1.2em;
-background:#e5e5e5;
 }
 
 #products>section>img{

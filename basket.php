@@ -27,14 +27,11 @@ include( "include/header.php" );
 		<li id="4"><a href="#4">Sports</a></li>
 	</ul>
 </nav>
-<section id="products" class="contentright productlist">
-	<h2 id="productTypes">All Products</h2>
+<section id="basketDetails" class="contentright productlist">
+	<h2 id="basket" class="contentTitle">Basket</h2>
 	<?php
-include( "include/smallprod.php" );
-include( "include/smallprod.php" );
-include( "include/smallprod.php" );
-include( "include/smallprod.php" );
-include( "include/smallprod.php" );
+include( "include/smallprodbasket.php" );
+
 ?>
 	
 </section>

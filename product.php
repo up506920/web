@@ -28,7 +28,7 @@ include( "include/header.php" );
 	</ul>
 </nav>
 <section id="productDetails" class="contentright">
-	<h2 id="prodName">HP Laptop</h2><!-- Have this get from DB with an id etc-->
+	<h2 id="prodName" class="contentTitle">HP Laptop</h2><!-- Have this get from DB with an id etc-->
 	<section id="prod">
 		<img src="lib/img/test.jpg"/ class="imageHover">
 		<section id="priceAndBasket">
