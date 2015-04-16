@@ -1,5 +1,13 @@
 CREATE DATABASE webscrp;
 
+use webscrp;
+
+CREATE TABLE Category (
+CatID int NOT NULL AUTO_INCREMENT,
+CatName varchar(100) NOT NULL
+PRIMARY KEY (CatID)
+) AUTO_INCREMENT=1 ;
+
 CREATE TABLE Product (
 ProdID smallint(3) NOT NULL AUTO_INCREMENT,
 Name varchar(100) NOT NULL,
@@ -7,9 +15,15 @@ Description varchar(600) NOT NULL,
 Price decimal(10,2) NOT NULL,
 img_name varchar(100) NOT NULL,
 CatID int NOT NULL,
-PRIMARY KEY (ProdID)
+PRIMARY KEY (ProdID),
+FOREIGN KEY (CatID) REFERENCES Category(CatID)
 ) AUTO_INCREMENT=1 ;
+
+INSERT INTO Category VALUES (1, "Laptop");
+INSERT INTO Category VALUES (2, "Desktop");
 
 INSERT INTO Product VALUES (1, "HP Laptop", "Test Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies, eros et sagittis facilisis, elit lacus suscipit erat, in consequat sem velit nec lacus. In fringilla aliquet neque, vestibulum luctus libero tempor id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut mattis, quam at vulputate porttitor, sem eros ultrices est, ut volutpat nibh lorem sit amet tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas auctor facilisis nisi, eget commodo odio. Fusce eu lacus pellentesque, auctor orci eget, porttitor purus. Nulla dignissim vulputate nisi, vel egestas diam sollicitudin non. Pellentesque gravida lorem in dolor congue, nec scelerisque erat hendrerit. Sed aliquet dui et eros finibus pharetra. Mauris libero augue, euismod sodales lacus vitae, condimentum suscipit purus. Nullam at ligula malesuada, lobortis est ac, dapibus leo.", "499.99", "test.jpg", 1); 
 
 INSERT INTO Product VALUES (2, "Dell Desktop", "This is a test of a shorter description for the dell desktop", "899.99", "test.jpg", 2); 
+
+

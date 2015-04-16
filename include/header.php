@@ -2,14 +2,28 @@
 <html lang="en">
 	<head>
 		<link rel="stylesheet" title="Common" href="lib/CommonScripts.css">
+		<?php 
+		if (file_exists("include/settings.php")) {
+			include("include/settings.php"); 
+			}
+		else
+		{ 
+		//INSTALL PAGE?
+		$dbhost = "localhost";
+		  $dbuser = "root";
+		  $dbpassword = "";
+		  $companyName = "Company Name";
+		  }
+		  $title=$companyName;
+		  ?>
 		<!--define all other common includes here, e.g. js files-->
 		<meta charset="UTF-8">
-		<title>Company Name</title> <!--This'll be dynamic in PHP, take from DB from initial setup -->
+		<title><?php echo $companyName ?></title> <!--This is dynamic, taken from settings.php -->
 	</head>
 	<body> 
 		<section id="container">
 		<header>
-			<h1><a href="index.php">Company Name</a></h1>
+			<h1><a href="index.php"><?php echo $companyName ?></a></h1>
 			<a href="basket.php"><img src="lib/img/basket.png"/></a>
 			<span id="basketCount">0</span>
 			<form id="searchForm"> <!--Action =search.php-->

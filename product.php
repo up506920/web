@@ -27,12 +27,13 @@ include( "include/header.php" );
 		<li id="4"><a href="#4">Sports</a></li>
 	</ul>
 </nav>
+
 <section id="productDetails" class="contentright">
-	<h2 id="prodName" class="contentTitle">HP Laptop</h2><!-- Have this get from DB with an id etc-->
+	<h2 id="prodName" class="contentTitle"><?php echo $prodName ?></h2><!-- Have this get from DB with an id etc-->
 	<section id="prod">
-		<img src="lib/img/test.jpg"/ class="imageHover">
+		<img src="lib/img/<?php echo $id; ?>.jpg"/ class="imageHover">
 		<section id="priceAndBasket">
-			<p class="sameLine">Price: </p><p id="price" class="priceText">£499.99</p><br/>
+			<p class="sameLine">Price: </p><p id="price" class="priceText"><?php echo $price ?></p><br/>
 			<p class="sameLine">Stock: </p><p class="inStock">In Stock <em>(20)</em></p> <!--Make dynamic depending on stock--><br/><br/>
 			<p class="sameLine">Quantity: </p><select>
 				<option value="1">1</option>

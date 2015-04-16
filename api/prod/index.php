@@ -1,4 +1,8 @@
 <?php
+//Products API
+//@author 506920
+
+
 /*$id = intval($_GET['id']);
 
 $connect = mysqli_connect('localhost','root','','webscrp');
@@ -12,8 +16,11 @@ $rows = array();
 echo $result;*/
 
 
-//PDO stuff 
+
 $id = intval($_GET['id']);
+
+//PDO stuff 
+
 $user = 'root';
 $pass = '';
 $pdo = new PDO('mysql:host=localhost;dbname=webscrp', $user, $pass);
