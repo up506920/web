@@ -24,9 +24,10 @@ $id = intval($_GET['id']);
 $user = 'root';
 $pass = '';
 $pdo = new PDO('mysql:host=localhost;dbname=webscrp', $user, $pass);
-$sql = $pdo->prepare("SELECT * FROM Product WHERE ProdID=?");
+$sql = $pdo->prepare("SELECT * FROM Product INNER JOIN Category on Product.CatID = Category.CatID WHERE ProdID=?");
 $sql->execute(array($id));
 $json = $sql->fetchAll(PDO::FETCH_ASSOC);
-echo json_encode($json);
+$json = json_encode($json);
+//echo json_encode($json);
 
 $pdo = null;

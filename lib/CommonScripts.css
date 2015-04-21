@@ -106,8 +106,6 @@ list-style: none;
 }
  .sidebar > li:hover > a,
 .sidebar > li:target > a {
- 
-    /*background: url(../img/active.png) repeat-x;*/
     background: #0066FF;
 }
  
@@ -141,6 +139,7 @@ display:block;
 }
 section .hidden{
 height:0px;
+margin: 0px;
 }
 .imageHover:hover{
 width:300px
@@ -166,6 +165,9 @@ visibility: hidden;
 .marginBottom {
   margin-bottom: 1.2em;
 }
+.productlist{
+overflow:hidden;
+}
 .productlist h2 {
 display:block;
 text-align:center;
@@ -183,6 +185,7 @@ color:darkblue;
 }
 #prod1, #product, #prod, #basket {
 position:relative;
+min-width: 676px;
 }
 .inStock {
 font-weight:bold;

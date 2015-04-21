@@ -4,7 +4,7 @@
 //header.php will include this file, if it doesn't exist either 
 //A. use default values or B. go to install page
 
-$dbhost = "localhost";
+		  $dbhost = "localhost";
 		  $dbuser = "root";
 		  $dbpassword = "";
 		  $companyName = "Test Company";
