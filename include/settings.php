@@ -8,3 +8,4 @@
 		  $dbuser = "root";
 		  $dbpassword = "";
 		  $companyName = "Test Company";
+		  

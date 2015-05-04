@@ -7,26 +7,36 @@ $prodName = $data[0]['Name'];
 $price = $data[0]['Price'];
 $description = $data[0]['Description'];
 $catID = $data[0]['CatID'];
+$stock = $data[0]['Stock'];
 include( "include/nav.php");
 ?>
 <p id="urlid" class="hidden"><?php echo $urlid ?></p>
 <p id="catid" class="hidden"><?php echo $catID ?></p>
+<p id="stocknum" class="hidden"><?php echo $stock ?></p>
 
 <section id="productDetails" class="contentright">
 	<h2 id="prodName" class="contentTitle"><?php echo $prodName ?></h2><!-- Have this get from DB with an id etc-->
 	<section id="prod">
-		<img src="lib/img/prods/<?php echo $id; ?>.jpg" class="imageHover">
+		<img src="lib/img/prods/<?php echo $id; ?>.jpg" class="imageHover" onError="this.src='lib/img/prods/Default-Icon-icon.png'";>
 		<section id="priceAndBasket">
 			<p class="sameLine">Price: </p><p id="price" class="priceText">£<?php echo $price ?></p><br/>
-			<p class="sameLine">Stock: </p><p class="inStock">In Stock <em>(20)</em></p> <!--Make dynamic depending on stock--><br/><br/>
-			<p class="sameLine">Quantity: </p><select>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
+			<p class="sameLine">Stock: </p>
+			<?php if($stock > 0){
+			$stockText = "In Stock";
+			$stockColour = "green";
+			}
+			else{
+			$stockText = "Out of Stock";
+			$stockColour = "red";
+			}?>
+			<p class="inStock" style="color:<?php echo $stockColour?>">
+			
+			<?php echo $stockText ?><em>(<?php echo $stock ?>)</em></p> <!--Make dynamic depending on stock--><br/><br/>
+			<form>
+			<p class="sameLine">Quantity: </p><select id = "qty">
 			</select>
-			<input type="submit" title="Add To Basket" value="Add To Basket" />
+			<input id="add" type="button" title="Add To Basket" value="Add To Basket"/>
+			</form>
 		</section>
 		<p class="productDesc"><?php echo $description?>
 </p>
@@ -35,10 +45,45 @@ include( "include/nav.php");
 </section>
 <script>
 
+var qtySelect = document.getElementById("qty");
+var id = document.getElementById("urlid").innerHTML;
+var submit = document.getElementById("add");
+
+
+
+function makeQuantityOptions(){
+//Take the number of items in stock from PHP, loop through to add the options to the qty select.
+var stockNum = document.getElementById("stocknum").innerHTML;
+var stockOptions = "";
+for (var i=1; i <= stockNum; i++) {
+	stockOptions += "<option value=" + i + ">" + i + "</option>";
+}
+qtySelect.innerHTML = stockOptions;
+}
+
+function addToSession(response){
+//Pop up with 
+window.alert(response);
+location.reload();
+//Update stock
+
+}
+
+addToCart = function(){
+//if QTY 
+var qty = qtySelect.options[qtySelect.selectedIndex].value;
+AjaxGet('api/addtocart.php?id='+id+'&qty='+qty, addToSession);
+}
+
+
+
 goHomeAndHighlight = function(){
 var catClicked = document.querySelector(".sidebar > li:hover > a");
 window.location.href = "index.php?#" + catClicked.id;
 }
+
+
+
 var sidebarLinks = document.getElementsByClassName("sidebar")[0].getElementsByTagName("a");
 var catID = document.getElementById("catid").innerHTML;
 var clicked = document.querySelector(".sidebar > li:target > a");
@@ -50,6 +95,9 @@ if(sidebarLinks[i].id == catID && (clicked == null && window.location.href.index
 }
 sidebarLinks[i].addEventListener("click", goHomeAndHighlight);
 }
+submit.addEventListener("click", addToCart);
+
+window.onload = makeQuantityOptions;
 
 </script>
 <?php

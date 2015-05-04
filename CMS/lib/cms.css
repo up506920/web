@@ -24,3 +24,7 @@ min-width: 500px;
 	border-radius: 25px;
 }
 #portalchooser li:hover a { background: #0066FF; }
+.shortProductDesc{
+width:100%;
+max-width:856px;
+}

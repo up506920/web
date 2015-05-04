@@ -9,6 +9,11 @@ header>h1{
     font-size:2.5em;
     float:left;
 }
+.header
+{
+display:block;
+position:relative;
+}
 header>h1>a{
 text-decoration: none;
 color:black;
@@ -27,6 +32,8 @@ display:inline-block;
 margin: 0 auto; 
 line-height:6;
 float:right;
+position:absolute;
+right:100px;
 }
 header>a>img {
     float:right;
@@ -44,13 +51,31 @@ top:7px
 #sidebar {
 width:23%;
 max-width:200px;
-
+}
+#livesearch {
+width:173px;
+position:absolute;
+top: 60px;
+}
+#livesearch > p {
+line-height: 1;
+margin:0;
+background:#e5e5e5;
+}
+#livesearch > p:hover {
+    background: #0066FF;
+	cursor: pointer;
+}
+#livesearch > p > a {
+text-decoration:none;
+color: darkblue;
+font-weight: bold;
 }
 .contentcenter
 {
     margin:0 auto;
     width:100%;
-    overflow:auto;
+    overflow:hidden;
 }
 .contentleft,
 .contentright
@@ -137,6 +162,9 @@ list-style: none;
 text-align: center;
 display:block;
 }
+.hiddenform{
+visibility: hidden;
+}
 section .hidden{
 height:0px;
 margin: 0px;
@@ -161,6 +189,9 @@ visibility: hidden;
   position: absolute;
   top: 0;
   right: 0;
+}
+.border1{
+border: 1px solid black;
 }
 .marginBottom {
   margin-bottom: 1.2em;
@@ -197,8 +228,15 @@ font-weight:bold;
 color:red; 
 display:inline;
 }
+.cmsform{
+width:300px;
+}
+.cmsform > input, .cmsform > select{
+width:100%;
+}
+
 .contentright section > h2{
-position: absolute;
+/*position: absolute;*/
 top: 0px;
 text-decoration: none;
 color:black;
@@ -241,6 +279,7 @@ display:inline;
 
 #products>section>img{
 border-width:1px; border-style:solid;
+height:77px;
 }
 
 footer{
