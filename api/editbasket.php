@@ -1,8 +1,6 @@
 <?php 
 session_start();
-//Base basket code
-//Some base session reference to https://www.codeofaninja.com/2013/04/shopping-cart-in-php.html
-//Other content author 506920
+//Edit contents of basket. Author 506920
 
 if(!isset($dbhost)){
 require_once("settings.php");

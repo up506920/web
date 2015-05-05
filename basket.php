@@ -6,10 +6,7 @@ include( "include/nav.php");
 ?>
 <section id="basketDetails" class="contentright productlist">
 	<h2 id="basket" class="contentTitle">Basket</h2>
-	<?php
-include( "include/smallprodbasket.php" );
-
-?>
+ Loading Basket...
 	
 </section>
 </section>
@@ -22,46 +19,90 @@ include( "include/footer.php" );
 
 window.onload = onLoad;
 
-function makeSmallProds(response, qty)
+function makeSmallProds(response)
     { 
-	
 		var prodsHTML = document.getElementById('basketDetails').innerHTML;
-		jsonResp = JSON.parse(response);
-		for(var i=0;i<jsonResp.length;i++){
-		var obj = jsonResp[i];
-		/*for(var key in obj){
-			var attrName = key;
-			var attrValue = obj[key];
-			}*/
+		obj = JSON.parse(response);
+		stockOptionsHTML = makeQuantityOptions(parseInt(obj["Stock"]), parseInt(obj["BasketQty"]));
 		shortDesc = obj["Description"].substring(0,65) + "...";
-		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px;"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£499.99</p><br/><p class="sameLine">Quantity: </p><select><option value="1">' + qty + '</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></aside>'
-		}
+		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px;" onerror="errorImage(this)"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£' + obj["Price"] + '</p><br/><p class="sameLine">Quantity: </p><select>' + stockOptionsHTML + '</select></aside>'
+		
 	
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
 
 	}
+	
+function makeQuantityOptions(stockNum, basketNum){
+//Take the number of items in stock from PHP, loop through to add the options to the qty select.
+var stockOptions = "";
+var totalStock = parseInt(stockNum + basketNum);
+for (var i=1; i <= totalStock; i++) {
+	if(i==basketNum){
+		stockOptions += "<option value=" + i + " selected>" + i + "</option>";
+		}
+	else{
+		stockOptions += "<option value=" + i + ">" + i + "</option>";
+	}
+		}
+	return stockOptions;
+}
 
-
+function errorImage(img){
+		img.src='lib/img/prods/Default-Icon-icon.png';
+	}
+	
   function findProds(response)
     { 
 		var prodsHTML = '<h2 id="basket">Basket</h2>';
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
+		if(response.charAt(0) == 'N'){
+			prodsHTML+=response;
+			document.getElementById('basketDetails').innerHTML = prodsHTML; 
+		}
+		else
+		{
+		//The following is returning an object, I guess because an array has to be sequential and
+		//without gaps? Either way, easier to rewrite my standard array loop below to work with 
+		//the jsonResp as an object.
+
 		jsonResp = JSON.parse(response);
-		for(var i=0;i<jsonResp.length;i++){
-		var obj = jsonResp[i];
-		/*for(var key in obj){
-			var attrName = key;
-			var attrValue = obj[key];
-			}*/
-			AjaxGet('api/prod/index.php?id=' + obj[0], makeSmallProds(obj[1]));	
-			}
-
-
+		//jsonResp = jsonResp.toArray();
+		for(var key in jsonResp){
+			var qty = jsonResp[key];
+			//Edited AjaxGet to pass parameters. Specific instance so won't add into lib.
+			var URL = 'api/prod/index.php?id=' + key + '&qty=' + qty;
+			var ajaxObj = new XMLHttpRequest();
+			ajaxObj.open("GET", URL, false); 
+			ajaxObj.onreadystatechange = function()
+			{ if (ajaxObj.status == 200)
+				if (ajaxObj.readyState == 4)
+					makeSmallProds(ajaxObj.responseText);
+				};
+			ajaxObj.send(null);
+		}
+		}
 	}
 
 
+function editBasketItem(){
+
+}
+
+function editBasketItem(){
+
+}
+
 function onLoad() {
 	AjaxGet('api/addtocart.php', findProds);
+	//Add listeners to buttons
+	var basketEdit = document.querySelectorAll('.edit');
+    for (var i = 0; i < basketEdit.length; i++) {
+        basketEdit[i].addEventListener('click', editBasketItem);
+        }
+	var basketRemove = document.querySelectorAll('.remove');
+    for (var x = 0; x < basketEdit.length; x++) {
+        basketRemove[x].addEventListener('click', removeBasketItem);
+        }
 }
 
 

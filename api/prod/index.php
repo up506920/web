@@ -24,14 +24,33 @@ echo "Product successfully added!";
 
 else{
 $id = intval($_GET['id']);
-
-//PDO stuff 
-
-
 $sql = $pdo->prepare("SELECT * FROM Product INNER JOIN Category on Product.CatID = Category.CatID WHERE ProdID=?");
 $sql->execute(array($id));
-$json = $sql->fetchAll(PDO::FETCH_ASSOC);
-$json = json_encode($json);
-//echo json_encode($json);
+
+if(isset($_GET['qty'])){
+	$json = $sql->fetch(PDO::FETCH_ASSOC);
+	if(empty($json)){
+	
+	}
+	print_r($json);
+	/*if($json->rowCount() = 0){
+		//Remove from basket if product doesn't exist anymore
+		if(array_key_exists($id, $_SESSION['basket'])){
+			unset($_SESSION['basket'][$id]);
+			echo '';
+		}
+	}*/
+	$qty = $_GET['qty'];
+	$json["BasketQty"] = $qty;
+	$json = json_encode($json);
+	echo $json;
+} 
+else{
+	$json = $sql->fetchAll(PDO::FETCH_ASSOC);
+	$json["BasketQty"] = 0;
+	$json = json_encode($json);
+}
+
+
 }
 $pdo = null;

@@ -8,6 +8,6 @@
 	$dbhost = 'localhost';
     $dbuser = 'root';
 	$dbpassword = '';
-	$companyName = 'Test';
+	$companyName = 'test';
 	$rootURL = 'http://localhost/webscrp/';
-	 = new PDO('mysql:host=' $dbhost ';dbname=webscrp', $dbuser, $dbpassword);
+	$pdo = new PDO('mysql:host=' . $dbhost . ';dbname=webscrp', $dbuser, $dbpassword);
