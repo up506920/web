@@ -1,13 +1,13 @@
 <?php
 include( "include/header.php" );
 $urlid = intval($_GET['id']);
-include( "api/prod/index.php");
+require( "api/prod/index.php");
 $data = json_decode($json,true);
-$prodName = $data[0]['Name'];
-$price = $data[0]['Price'];
-$description = $data[0]['Description'];
-$catID = $data[0]['CatID'];
-$stock = $data[0]['Stock'];
+$prodName = $data['Name'];
+$price = $data['Price'];
+$description = $data['Description'];
+$catID = $data['CatID'];
+$stock = $data['Stock'];
 include( "include/nav.php");
 ?>
 <p id="urlid" class="hidden"><?php echo $urlid ?></p>

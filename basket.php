@@ -22,6 +22,11 @@ window.onload = onLoad;
 function makeSmallProds(response)
     { 
 		var prodsHTML = document.getElementById('basketDetails').innerHTML;
+			if(response == 'Deleted'){
+				document.getElementById('basketDetails').innerHTML = prodsHTML; 
+				return;
+			}
+			else{
 		obj = JSON.parse(response);
 		stockOptionsHTML = makeQuantityOptions(parseInt(obj["Stock"]), parseInt(obj["BasketQty"]));
 		shortDesc = obj["Description"].substring(0,65) + "...";
@@ -29,10 +34,11 @@ function makeSmallProds(response)
 		
 	
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
-
+}
 	}
 	
 function makeQuantityOptions(stockNum, basketNum){
+
 //Take the number of items in stock from PHP, loop through to add the options to the qty select.
 var stockOptions = "";
 var totalStock = parseInt(stockNum + basketNum);
@@ -45,6 +51,7 @@ for (var i=1; i <= totalStock; i++) {
 	}
 		}
 	return stockOptions;
+	
 }
 
 function errorImage(img){
@@ -70,7 +77,7 @@ function errorImage(img){
 		for(var key in jsonResp){
 			var qty = jsonResp[key];
 			//Edited AjaxGet to pass parameters. Specific instance so won't add into lib.
-			var URL = 'api/prod/index.php?id=' + key + '&qty=' + qty;
+			var URL = 'api/prod/index.php?id=' + parseInt(key) + '&qty=' + qty;
 			var ajaxObj = new XMLHttpRequest();
 			ajaxObj.open("GET", URL, false); 
 			ajaxObj.onreadystatechange = function()

@@ -1,6 +1,9 @@
 <?php
 //Products API
 //@author 506920
+if (session_status() == PHP_SESSION_NONE) {
+ session_start();
+ }
 if(!isset($dbhost)){
 require_once("../settings.php");
 }
@@ -23,6 +26,7 @@ echo "Product successfully added!";
 	}
 
 else{
+//Get specific product
 $id = intval($_GET['id']);
 $sql = $pdo->prepare("SELECT * FROM Product INNER JOIN Category on Product.CatID = Category.CatID WHERE ProdID=?");
 $sql->execute(array($id));
@@ -30,27 +34,28 @@ $sql->execute(array($id));
 if(isset($_GET['qty'])){
 	$json = $sql->fetch(PDO::FETCH_ASSOC);
 	if(empty($json)){
-	
-	}
-	print_r($json);
-	/*if($json->rowCount() = 0){
-		//Remove from basket if product doesn't exist anymore
+//Remove from basket if product doesn't exist anymore
 		if(array_key_exists($id, $_SESSION['basket'])){
 			unset($_SESSION['basket'][$id]);
-			echo '';
+			echo 'Deleted';
 		}
-	}*/
-	$qty = $_GET['qty'];
-	$json["BasketQty"] = $qty;
-	$json = json_encode($json);
-	echo $json;
+
+		
+	}
+	if(!empty($json)){
+		$qty = $_GET['qty'];
+		$json["BasketQty"] = $qty;
+		$json = json_encode($json);
+		echo $json;
+	}
 } 
 else{
-	$json = $sql->fetchAll(PDO::FETCH_ASSOC);
+	$json = $sql->fetch(PDO::FETCH_ASSOC);
 	$json["BasketQty"] = 0;
 	$json = json_encode($json);
+	
+	//echo $json;
 }
 
 
 }
-$pdo = null;

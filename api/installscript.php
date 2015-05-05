@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$dbpassword = "$" . "dbpassword";
 	$companyName = "$" . "companyName";
 	$rootURL = "$" . "rootURL";
+	$pdo = "$" . "pdo";
 	
 	//create DB
 	
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$dbpassword = '" . $dbpasswordinstall . "';
 	$companyName = '" . $companyNameinstall . "';
 	$rootURL = '" . $rootURLinstall . "';
-	$pdotest = new PDO('mysql:host=' $dbhost ';dbname=webscrp', $dbuser, $dbpassword);"
+	$pdo = new PDO('mysql:host=' . $dbhost . ';dbname=webscrp', $dbuser, $dbpassword);"
 	;
 	
 	fwrite($settingsfile, $settings);
