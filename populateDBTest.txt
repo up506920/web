@@ -10,6 +10,7 @@ sName varchar(30),
 address varchar(100),
 tel varchar(30),
 totalprice varchar(10),
+orderDate DATETIME,
 PRIMARY KEY (OrderID)
 ) AUTO_INCREMENT=1 ;
 

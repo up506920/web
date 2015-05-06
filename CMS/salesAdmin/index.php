@@ -11,20 +11,18 @@
 		</li>
 		<li><a href="#3">Cash Taken Report</a>
 		</li>
-		<li><a href="#4">Alter Pending Sales</a>
-		</li>
-		<li><a href="#5">Return Items</a>
+		<li><a href="#4">Return Items</a>
 		</li>
 	</ul>
 </nav>
 <section id="salesAdmin" class="contentright">
-	<section>
+	<section id="form">
 		<h2 class="header">Click on the links to the left to do different tasks</h2>
 	</section>
 	
 </section>
 </section>
-<script src ='lib/prodadmin.js'></script>
+<script src ='lib/salesadmin.js'></script>
 <?php
 include( "../../include/footer.php" );
 ?>
