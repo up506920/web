@@ -4,7 +4,7 @@
 if(!isset($dbhost)){
 require_once("../settings.php");
 }
-$pdo = new PDO('mysql:host=' . $dbhost . ';dbname=webscrp', $dbuser, $dbpassword);
+//$pdo = new PDO('mysql:host=' . $dbhost . ';dbname=webscrp', $dbuser, $dbpassword);
 
 $id = intval($_GET['id']);
 

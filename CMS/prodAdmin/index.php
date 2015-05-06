@@ -5,11 +5,11 @@
 <section id="content" class="contentcenter">
 <nav id="sidebar" class="contentleft">
 	<ul class="sidebar">
-		<li id="1"><a href="#1">Add Products</a>
+		<li><a href="#1">Add Products</a>
 		</li>
-		<li id="2"><a href="#2">Edit/Remove Products</a>
+		<li><a href="#2">Edit/Remove Products</a>
 		</li>
-		<li id="3"><a href="#3">Edit Categories</a></li>
+		<li><a href="#3">Edit Categories</a></li>
 	</ul>
 </nav>
 <section id="prodAdmin" class="contentright">
@@ -35,7 +35,7 @@
 		<button id="submitProd" type="submit">Add Product</button>
 		</form>
 		<form id="editprods" class="hiddenform" method="POST">
-		<p class="hiddenform" style="font-size:1px;" id="allprods"><?php include( "../../api/prodget.php"); ?></p>
+		<p class="hiddenform" style="font-size:1px;" id="allprods"></p>
 		<label for="name">Product Name</label>
 		<input type="text" id="name"><br/>
 		<label for="desc">Description</label>

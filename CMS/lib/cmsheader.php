@@ -10,5 +10,5 @@
 	<body> 
 		<section id="container">
 		<header>
-			<h1><?php echo $companyName?></h1>
+			<h1><a href="<?php echo $rootURL?>index.php"><?php echo $companyName?></a></h1>
 		</header>

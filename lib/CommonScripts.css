@@ -72,6 +72,11 @@ text-decoration:none;
 color: darkblue;
 font-weight: bold;
 }
+.footerText{
+font-size:11px;
+position:absolute;
+bottom:0px;
+}
 .contentcenter
 {
     margin:0 auto;
@@ -121,15 +126,7 @@ list-style: none;
 	border: 1px solid black;
 
 }
-.submenu li a {
-    color: #797979; 
-    background: #e5e5e5;
-    border: 1px solid black;
- }
- 
-.submenu li > a{
-    color: black;
-}
+
  .sidebar > li:hover > a,
 .sidebar > li:target > a {
     background: #0066FF;
@@ -140,7 +137,6 @@ list-style: none;
     background: #0066FF;
 }
  
-.submenu li:hover a { background: #efefef; }
 .sidebar li > .submenu {
     height: 0;
     overflow: hidden;

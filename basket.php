@@ -30,11 +30,11 @@ function makeSmallProds(response)
 		obj = JSON.parse(response);
 		stockOptionsHTML = makeQuantityOptions(parseInt(obj["Stock"]), parseInt(obj["BasketQty"]));
 		shortDesc = obj["Description"].substring(0,65) + "...";
-		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px;" onerror="errorImage(this)"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£' + obj["Price"] + '</p><br/><p class="sameLine">Quantity: </p><select>' + stockOptionsHTML + '</select></aside>'
+		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px;" onerror="errorImage(this)"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£' + obj["Price"] + '</p><br/><p class="sameLine">Quantity: </p><select>' + stockOptionsHTML + '</select><button></aside>'
 		
 	
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
-}
+		}
 	}
 	
 function makeQuantityOptions(stockNum, basketNum){
@@ -86,7 +86,7 @@ function errorImage(img){
 					makeSmallProds(ajaxObj.responseText);
 				};
 			ajaxObj.send(null);
-		}
+			}
 		}
 	}
 

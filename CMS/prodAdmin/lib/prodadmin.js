@@ -29,11 +29,11 @@ function getForm() {
     { 
 	var catClicked = document.querySelector(".sidebar > li:hover> a");
 	if(catClicked != null && catClicked !== undefined){
-		var formHTML = '<h2 id="header">' + catClicked.innerText + '</h2> Loading form...';
+		var formHTML = '<h2 id="header">' + catClicked.innerHTML + '</h2> Loading form...';
 		document.getElementById('form').innerHTML = formHTML; 
-		formHTML = '<h2 id="header">' + catClicked.innerText + '</h2>';
+		formHTML = '<h2 id="header">' + catClicked.innerHTML + '</h2>';
 		if(catClicked.hash == "#1"){
-			formHTML+='<form id="addprods" class="cmsform" method="POST"><label for="name">Product Name</label><input type="text" id="name"><br/><label for="desc">Description</label><input type="text" id="desc"><br/><label for="price">Price</label><input type="text" id="price"><br/><label for="stock">Stock</label><input type="text" id="stock"><br/><label for="category">Category</label><Select type="text" id="category"><br/>'
+			formHTML+='<form id="addprods" class="cmsform"><label for="name">Product Name</label><input type="text" id="name"><br/><label for="desc">Description</label><input type="text" id="desc"><br/><label for="price">Price</label><input type="text" id="price"><br/><label for="stock">Stock</label><input type="text" id="stock"><br/><label for="category">Category</label><Select type="text" id="category"><br/>'
 			jsonResp = JSON.parse(response);
 			for(var i=1;i<jsonResp.length;i++){
 				var obj = jsonResp[i];
@@ -43,7 +43,6 @@ function getForm() {
 			document.getElementById('form').innerHTML = formHTML; 
 			document.getElementById("submitProd").addEventListener("click", addProds);
 			}
-			//STILL TO DO
 		else if(catClicked.hash == "#2"){
 		jsonResp = JSON.parse(response);
 		for(var i=0;i<jsonResp.length;i++){
@@ -52,7 +51,7 @@ function getForm() {
 			var attrName = key;
 			var attrValue = obj[key];
 			}*/
-		formHTML+='<section id="prod1" class="marginBottom"><form id="formedit'+ obj["ProdID"] +'" action="../../api/prod/edit.php" method="POST"><img src="../../lib/img/prods/' + obj["ProdID"] + '.jpg" onError="errorImage(this)" style="width:100px;"/></object><label for="title' + obj["ProdID"] + '">Product Name: </label><input type="hidden" name="id" value="'+ obj["ProdID"] + '"><input id="title' + obj["ProdID"] + '" name="title" value="' + obj["Name"] + '"></h2><br/><input id="productDesc" name="productDesc" class="shortProductDesc" value="' + obj["Description"] + '"><label for="stock">Stock</label><input id="stock" name="stock" class="stock" value="' + obj["Stock"] + '"><label for="price" style="float:right">Price</label><input id="price" name="price" class="price" value="' + obj["Price"] + '"><br/><button id="'+ obj["ProdID"] +'" class="editbutton" type="submit">Edit Product</button><button id="'+ obj["ProdID"] +'" class="deletebutton" type="button">Delete Product</button><br/><br/><br/></form></section>';
+		formHTML+='<section id="prod1" class="marginBottom"><form id="formedit'+ obj["ProdID"] +'" action="../../api/prod/edit.php"><img src="../../lib/img/prods/' + obj["ProdID"] + '.jpg" onError="errorImage(this)" style="width:100px;"/></object><label for="title' + obj["ProdID"] + '">Product Name: </label><input type="hidden" name="id" value="'+ obj["ProdID"] + '"><input id="title' + obj["ProdID"] + '" name="title" value="' + obj["Name"] + '"></h2><br/><input id="productDesc" name="productDesc" class="shortProductDesc" value="' + obj["Description"] + '"><label for="stock">Stock</label><input id="stock" name="stock" class="stock" value="' + obj["Stock"] + '"><label for="price" style="float:right">Price</label><input id="price" name="price" class="price" value="' + obj["Price"] + '"><br/><button id="'+ obj["ProdID"] +'" class="editbutton" type="submit">Edit Product</button><button id="'+ obj["ProdID"] +'" class="deletebutton" type="button">Delete Product</button><br/><br/><br/></form></section>';
 		document.getElementById('form').innerHTML = formHTML; }
 		formHTML+='</form>';
 		document.getElementById('form').innerHTML = formHTML; 
@@ -70,13 +69,16 @@ function getForm() {
 			var attrValue = obj[key];
 			}*/
 		
-		formHTML+='<section id="prod1" class="marginBottom"><form action="../../api/editcat.php" method="POST"><input type="hidden" name="catID" value="' + obj["CatID"] + '"><input id="' + obj["CatID"] + '" name="category" value="'+ obj["CatName"] + '"><button id="edit" type="submit">Edit Category</button></form><br/><br/>';
+		formHTML+='<section id="prod1" class="marginBottom"><form action="../../api/editcat.php" method="POST"><input type="hidden" name="catID" value="' + obj["CatID"] + '"><input id="' + obj["CatID"] + '" name="category" value="'+ obj["CatName"] + '"><button id="edit" type="submit">Edit Category</button><button id="b' + obj["CatID"] + '" class="deletecat" type ="button">Delete Category</button></form><br/><br/>';
 		}
-		formHTML+='</select><br/></form><form id="newcatform" action="../../api/editcat.php" method="POST"><input id="newcat" name="newcat" value="New Category Here..."><button id="submitProd" type="submit">Add Category</button></form>';
+		formHTML+='</select><br/></form><form id="newcatform" action="../../api/editcat.php" method="POST"><input id="newcat" name="newcat" placeholder="New Category Here..."><button id="submitProd" type="submit">Add Category</button></form>';
 			document.getElementById('form').innerHTML = formHTML; 
 			document.getElementById("newcat").addEventListener("click", addcategory);
+			var delcats = document.getElementsByClassName("deletecat");
+		for (var i=0; i<delcats.length; i++) {
+            delcats[i].addEventListener('click', deleteCat);
+        }
 		
-		document.getElementById('form').innerHTML = formHTML; 
         }
 	}
 	else{
@@ -88,10 +90,22 @@ function getForm() {
     }
 	
 	function addcategory(){
-	
+		//Done with standard form method post, kept framework to make it ajax in future if wanted
 	}
 	
 	
+	function deleteCat(e)
+	{
+	//remove first character that makes the id unique
+	var targetid = e.target.id.substring(1);
+	var delCatName = document.getElementById(targetid).value;
+	if(confirm("Are you sure you want to delete category '" + delCatName + "'? This change is permanent.")){
+		AjaxGet('../../api/editcat.php?catID=' + targetid, deleteResponse, "async");
+		
+		}
+	else {
+	}
+	}
 	
 	function deleteResponse(response){
 	alert(response);
@@ -100,8 +114,14 @@ function getForm() {
 	
 	function deleteProd(e)
 	{
-	AjaxGet('../../api/prod/delete.php?id=' + e.target.id, deleteResponse, "async");
+	var delProdName = document.getElementById('title' + e.target.id).value;
+	if(confirm("Are you sure you want to delete product '" + delProdName + "'? This change is permanent.")){
+		AjaxGet('../../api/prod/delete.php?id=' + e.target.id, deleteResponse, "async");	
+		}
+	else {
 	}
+	}
+	
 	
 		function errorImage(img){
 		img.src='../../lib/img/prods/Default-Icon-icon.png';

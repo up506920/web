@@ -3,18 +3,27 @@ include( "include/header.php" );
 $urlid = intval($_GET['id']);
 require( "api/prod/index.php");
 $data = json_decode($json,true);
-$prodName = $data['Name'];
-$price = $data['Price'];
-$description = $data['Description'];
-$catID = $data['CatID'];
-$stock = $data['Stock'];
+if(isset($data['Name'])){
+	$prodName = $data['Name'];
+	$price = $data['Price'];
+	$description = $data['Description'];
+	$catID = $data['CatID'];
+	$stock = $data['Stock'];
+	}
+else
+	{
+	$error = 'Product does not exist.';
+	}
 include( "include/nav.php");
 ?>
 <p id="urlid" class="hidden"><?php echo $urlid ?></p>
 <p id="catid" class="hidden"><?php echo $catID ?></p>
 <p id="stocknum" class="hidden"><?php echo $stock ?></p>
+<p id="error" class="hidden"><?php 
+if(isset($error)){ echo $error; } ?>
+</p>
 
-<section id="productDetails" class="contentright">
+<section id="productDetails" class="contentright hidden">
 	<h2 id="prodName" class="contentTitle"><?php echo $prodName ?></h2><!-- Have this get from DB with an id etc-->
 	<section id="prod">
 		<img src="lib/img/prods/<?php echo $id; ?>.jpg" class="imageHover" onError="this.src='lib/img/prods/Default-Icon-icon.png'";>
@@ -53,12 +62,24 @@ var submit = document.getElementById("add");
 
 function makeQuantityOptions(){
 //Take the number of items in stock from PHP, loop through to add the options to the qty select.
+//if page has error, inform user and redirect
+var errorMsg = document.getElementById("error").innerHTML;
+if(errorMsg.length > 0){
+	document.getElementById("productDetails").innerHTML = "<h2>Product not found</h2><p>Click <a href='index.php'>here</a> to return to the homepage</h2>"
+	document.getElementById("productDetails").className = "contentright";
+}
+else
+//Continue with page load
+{
+document.getElementById("productDetails").className = "contentright";
 var stockNum = document.getElementById("stocknum").innerHTML;
 var stockOptions = "";
 for (var i=1; i <= stockNum; i++) {
 	stockOptions += "<option value=" + i + ">" + i + "</option>";
 }
 qtySelect.innerHTML = stockOptions;
+
+}
 }
 
 function addToSession(response){
