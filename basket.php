@@ -98,6 +98,10 @@ function errorImage(img){
 				};
 			ajaxObj.send(null);
 			}
+		prodsHTML = document.getElementById('basketDetails').innerHTML;
+		prodsHTML+='<button id="buy" type="button">Simulate Purchase</button>';
+		document.getElementById('basketDetails').innerHTML = prodsHTML; 
+		document.getElementById('buy').addEventListener("click", simulatePurchase);
 		}
 	}
 
@@ -106,6 +110,17 @@ function getResponse(response){
 	location.reload();
 	}
 	
+function simulatePurchase(e){
+//msgbox asking for custs details
+
+//add to Orders
+
+//add each line to orderlines
+
+//remove from basket
+
+
+}
 
 function editBasketItem(e){
 	var targetid = e.target.id.substring(6);
