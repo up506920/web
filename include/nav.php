@@ -4,7 +4,7 @@
 	<ul class="sidebar">
 	<?php 
 	foreach($json as $key => $value){
-	echo '<li id="', $value["CatID"], '"><a id ="', $value["CatID"], '" href="#', $value["CatID"], '">', $value["CatName"], '</a>
+	echo '<li id="c' . $value["CatID"] . '"><a id="c' . $value["CatID"] . '" href="#', $value["CatID"], '">', $value["CatName"], '</a>
 		</li>';
 	}
 	?>

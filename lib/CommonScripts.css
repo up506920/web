@@ -72,6 +72,10 @@ text-decoration:none;
 color: darkblue;
 font-weight: bold;
 }
+.remove{
+position:absolute;
+right:0px;
+}
 .footerText{
 font-size:11px;
 position:absolute;

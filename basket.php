@@ -30,12 +30,23 @@ function makeSmallProds(response)
 		obj = JSON.parse(response);
 		stockOptionsHTML = makeQuantityOptions(parseInt(obj["Stock"]), parseInt(obj["BasketQty"]));
 		shortDesc = obj["Description"].substring(0,65) + "...";
-		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px;" onerror="errorImage(this)"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£' + obj["Price"] + '</p><br/><p class="sameLine">Quantity: </p><select>' + stockOptionsHTML + '</select><button></aside>'
+		prodsHTML+='<section id="prod1" class="marginBottom"><img src="lib/img/prods/' + obj["ProdID"] + '.jpg" style="width:100px; height:77px;" onerror="errorImage(this)"/><a href="product.php?id=' + obj["ProdID"] + '"><h2>' + obj["Name"] + '</h2></a><p id="productDesc" class="shortProductDesc">' + shortDesc + '</p><p id="categoryNum" class="cat hidden">' + obj["CatID"] + '<p id="prodCategory">' + obj["CatName"] + '</p><aside id="basketQuantity"><p class="sameLine">Price: </p><p id="price" class="priceText">£' + obj["Price"] + '</p><br/><p class="sameLine">Quantity: </p><select id="qty' + obj["ProdID"] + '">' + stockOptionsHTML + '</select><button id="update' + obj["ProdID"] + '" class="update" type="button">Update item</button><br/><button id="remove' + obj["ProdID"] + '" class="remove" type="button">Remove item</button></aside>'
 		
 	
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
+		//Add listeners to buttons
+		var basketEdit = document.getElementsByClassName("update");
+			for (var i = 0; i < basketEdit.length; i++) {
+				basketEdit[i].addEventListener('click', editBasketItem);
+			}
+		var basketRemove = document.getElementsByClassName("remove");
+		for (var x = 0; x < basketEdit.length; x++) {
+			basketRemove[x].addEventListener('click', removeBasketItem);
+			}
 		}
 	}
+	
+
 	
 function makeQuantityOptions(stockNum, basketNum){
 
@@ -90,26 +101,27 @@ function errorImage(img){
 		}
 	}
 
+function getResponse(response){
+	alert(response);
+	location.reload();
+	}
+	
 
-function editBasketItem(){
-
+function editBasketItem(e){
+	var targetid = e.target.id.substring(6);
+	var newQty = document.getElementById("qty" + targetid).value;
+	AjaxGet("api/editbasket.php?id=" + targetid + "&newqty=" + newQty, getResponse); 
 }
 
-function editBasketItem(){
-
+function removeBasketItem(e){
+	var targetid = e.target.id.substring(6);
+	var newQty = 0;
+	AjaxGet("api/editbasket.php?id=" + targetid + "&newqty=" + newQty, getResponse); 
 }
 
 function onLoad() {
 	AjaxGet('api/addtocart.php', findProds);
-	//Add listeners to buttons
-	var basketEdit = document.querySelectorAll('.edit');
-    for (var i = 0; i < basketEdit.length; i++) {
-        basketEdit[i].addEventListener('click', editBasketItem);
-        }
-	var basketRemove = document.querySelectorAll('.remove');
-    for (var x = 0; x < basketEdit.length; x++) {
-        basketRemove[x].addEventListener('click', removeBasketItem);
-        }
+	
 }
 
 
