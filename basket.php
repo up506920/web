@@ -7,8 +7,9 @@ include( "include/nav.php");
 <section id="basketDetails" class="contentright productlist">
 	<h2 id="basket" class="contentTitle">Basket</h2>
  Loading Basket...
-	
+	<div id="simulatebuy"></div>
 </section>
+
 </section>
 <?php
 include( "include/footer.php" );
@@ -18,6 +19,15 @@ include( "include/footer.php" );
 
 
 window.onload = onLoad;
+
+function updateBasket(response){
+	document.getElementById("basketCount").innerHTML = response;
+}
+
+function refreshBasket(){
+	AjaxGet('api/prodget.php', makeSmallProds);
+	AjaxGet('api/prodget.php?&bskt=1', updateBasket);
+	}
 
 function makeSmallProds(response)
     { 
@@ -34,15 +44,7 @@ function makeSmallProds(response)
 		
 	
 		document.getElementById('basketDetails').innerHTML = prodsHTML; 
-		//Add listeners to buttons
-		var basketEdit = document.getElementsByClassName("update");
-			for (var i = 0; i < basketEdit.length; i++) {
-				basketEdit[i].addEventListener('click', editBasketItem);
-			}
-		var basketRemove = document.getElementsByClassName("remove");
-		for (var x = 0; x < basketEdit.length; x++) {
-			basketRemove[x].addEventListener('click', removeBasketItem);
-			}
+		
 		}
 	}
 	
@@ -98,28 +100,53 @@ function errorImage(img){
 				};
 			ajaxObj.send(null);
 			}
-		prodsHTML = document.getElementById('basketDetails').innerHTML;
-		prodsHTML+='<button id="buy" type="button">Simulate Purchase</button>';
-		document.getElementById('basketDetails').innerHTML = prodsHTML; 
-		document.getElementById('buy').addEventListener("click", simulatePurchase);
+			
+			prodsHTML = document.getElementById('basketDetails').innerHTML;
+			//Prevent purchase button appearing with nothing in the basket
+			if(prodsHTML != '<h2 id="basket">Basket</h2>'){
+				prodsHTML += '<div id="simulatebuy"></div>';
+				document.getElementById('basketDetails').innerHTML = prodsHTML; 
+				buyHTML = document.getElementById('simulatebuy').innerHTML;
+				buyHTML +='<button id="buy" type="button">Simulate Purchase</button>';
+				document.getElementById('simulatebuy').innerHTML = buyHTML; 
+				//Add listeners to buttons
+				document.getElementById('buy').addEventListener("click", simulatePurchase);
+			}
+			else
+			{
+				prodsHTML += '<p>Basket is empty. Why not check out our <a href="index.php">homepage</a> and add something to your basket?</p>'
+				document.getElementById('basketDetails').innerHTML = prodsHTML; 
+			}
+		var basketEdit = document.getElementsByClassName("update");
+			for (var i = 0; i < basketEdit.length; i++) {
+				basketEdit[i].addEventListener('click', editBasketItem);
+			}
+		var basketRemove = document.getElementsByClassName("remove");
+		for (var x = 0; x < basketEdit.length; x++) {
+			basketRemove[x].addEventListener('click', removeBasketItem);
+			}
 		}
 	}
 
 function getResponse(response){
 	alert(response);
-	location.reload();
+	AjaxGet('api/addtocart.php', findProds);
+	refreshBasket();
 	}
 	
+function orderConfirm(response){
+confirmHTML = "<h2>" + response + "</h2><p>Click <a href='index.php'>here</a> to continue shopping.</p>";
+document.getElementById('basketDetails').innerHTML = confirmHTML;
+//change basket to 0
+document.getElementById('basketCount').innerHTML = '0';
+}
 function simulatePurchase(e){
 //msgbox asking for custs details
-
+var name = prompt("Please enter the customers name", "");
+var address = prompt("Please enter the customers address", "");
+var tel = prompt("Please enter the customers telephone number", "");
 //add to Orders
-
-//add each line to orderlines
-
-//remove from basket
-
-
+AjaxGet("api/orders.php?name=" + name + "&address=" + address + "&tel=" + tel, orderConfirm); 
 }
 
 function editBasketItem(e){

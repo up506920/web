@@ -11,10 +11,7 @@ $id = intval($_GET['id']);
 if(isset($_GET['qty'])){
 $qty = intval($_GET['qty']);
 }
-//If on basket page and qty=absolute value
-
-
-
+//If on basket page and therefore qty=absolute value
 //Get old stock value
 $sql = $pdo->prepare("SELECT Stock from Product WHERE ProdID = ?;");
 $sql->execute(array($id));
@@ -49,10 +46,8 @@ if($newstock >= 0){
 				$msg = 'Product successfully updated!';
 				}
 			else{
-			if(array_key_exists($id, $_SESSION['basket'])){
 				unset($_SESSION['basket'][$id]);
 				$msg = 'Product successfully removed from basket';
-			}
 			}
 		}
 	}

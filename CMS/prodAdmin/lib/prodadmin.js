@@ -109,7 +109,7 @@ function getForm() {
 	
 	function deleteResponse(response){
 	alert(response);
-	location.reload();
+	ajaxChooser();
 	}
 	
 	function deleteProd(e)

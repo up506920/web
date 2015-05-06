@@ -11,8 +11,6 @@
 		</li>
 		<li><a href="#3">Cash Taken Report</a>
 		</li>
-		<li><a href="#4">Return Items</a>
-		</li>
 	</ul>
 </nav>
 <section id="salesAdmin" class="contentright">

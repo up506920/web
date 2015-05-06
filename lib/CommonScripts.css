@@ -215,7 +215,7 @@ top: 0px;
 text-decoration: none;
 color:darkblue;
 }
-#prod1, #product, #prod, #basket {
+.prod, #prod1, #product, #prod, #basket {
 position:relative;
 min-width: 676px;
 }
@@ -244,6 +244,10 @@ color:black;
 margin:0px;
 }
 
+#simulatebuy{
+float:right;
+}
+
 .productDesc,.shortProductDesc{
 margin-bottom:5px;
 }
@@ -255,6 +259,11 @@ font-weight:bold;
 color:red;
 display:inline;
 }
+
+.basket{
+cursor: pointer; cursor: hand;
+}
+
 #priceAndBasket {
 display:inline-block;
 position:absolute;

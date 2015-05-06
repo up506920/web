@@ -58,6 +58,7 @@
 					}
 				}
 			}
+
 			function populateLiveSearch(response)
 				{
 				document.getElementById("livesearch").innerHTML="";
@@ -71,7 +72,7 @@
 				document.getElementById("livesearch").innerHTML=results;
 				}
 				search.addEventListener("onchange", liveSearch(search.value));
-
+				
 				</script>
 		</header>
 	

@@ -1,6 +1,7 @@
 <?php
 //Products API
 //@author 506920
+
 if (session_status() == PHP_SESSION_NONE) {
  session_start();
  }
@@ -9,6 +10,7 @@ require_once("../settings.php");
 }
 $pdo = new PDO('mysql:host=' . $dbhost . ';dbname=webscrp', $dbuser, $dbpassword);
 //POST - Add new product
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	$name = $_POST["name"];
 	$desc = $_POST["desc"];
@@ -34,7 +36,7 @@ $sql->execute(array($id));
 if(isset($_GET['qty'])){
 	$json = $sql->fetch(PDO::FETCH_ASSOC);
 	if(empty($json)){
-//Remove from basket if product doesn't exist anymore
+//Remove from basket if product doesn't exist in DB anymore
 		if(array_key_exists($id, $_SESSION['basket'])){
 			unset($_SESSION['basket'][$id]);
 			echo 'Deleted';
@@ -56,6 +58,4 @@ else{
 	
 	//echo $json;
 }
-
-
 }

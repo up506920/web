@@ -1,6 +1,7 @@
 //Sales Admin Scripts
 //Author 506920
 
+//get sidebar links for eventlisteners
 var sidebarLinks = document.getElementsByClassName("sidebar")[0].getElementsByTagName("a");
 
 for (var i = 0; i < sidebarLinks.length; i++) {
@@ -36,11 +37,11 @@ function getForm() {
 		
 		//Sales Report
 		if(catClicked.hash == "#1"){
-			formHTML+='<table class="tg"><tr><th class="tg-031e">Order Number</th><th class="tg-031e">Name</th><th class="tg-031e">Address</th><th class="tg-031e">Telephone Number</th><th class="tg-031e">Number of Products</th><th class="tg-031e">Total Price</th><th class="tg-031e">Order Date</th></tr>'
+			formHTML+='<table class="tg"><tr><th class="tg-031e">Order Number</th><th class="tg-031e">Name</th><th class="tg-031e">Address</th><th class="tg-031e">Telephone Number</th><th class="tg-031e">Product Name</th><th class="tg-031e">Item Price</th><th class="tg-031e">Quantity</th><th class="tg-031e">Order Date</th></tr>'
 			jsonResp = JSON.parse(response);
 			for(var i=0;i<jsonResp.length;i++){
 				var obj = jsonResp[i];
-				formHTML+='<tr><td class="tg-031e">' + obj["OrderID"] + '</td><td class="tg-031e">' + obj["name"] + '</td><td class="tg-031e">' + obj["address"] + '</td><td class="tg-031e">' + obj["tel"] + '</td><td class="tg-031e">' + obj["prods"] + '</td><td class="tg-031e">£' + obj["totalprice"] + '</td><td class="tg-031e">' + obj["orderDate"] + '</td></tr>';
+				formHTML+='<tr><td class="tg-031e">' + obj["OrderID"] + '</td><td class="tg-031e">' + obj["name"] + '</td><td class="tg-031e">' + obj["address"] + '</td><td class="tg-031e">' + obj["tel"] + '</td><td class="tg-031e">' + obj["prods"] + '</td><td class="tg-031e">£' + obj["price"] + '</td><td class="tg-031e">' + obj["qty"] + '</td><td class="tg-031e">' + obj["orderDate"] + '</td></tr>';
 				}
 			formHTML+='</table>';
 			document.getElementById('form').innerHTML = formHTML; 
@@ -77,19 +78,7 @@ function getForm() {
 			document.getElementById('form').innerHTML = formHTML; 
 		
         }
-		else if(catClicked.hash == "#4"){
-		formHTML+='<table class="tg"><tr><th class="tg-031e">Total Cash Taken/Day</th><th class="tg-031e">Day of Transactions</th></tr>'
-			jsonResp = JSON.parse(response);
-			var totalcount = 0;
-			for(var i=0;i<jsonResp.length;i++){
-				var obj = jsonResp[i];
-				totalcount = totalcount + parseInt(obj["totalcash"]);
-				formHTML+='<tr><td class="tg-031e"><p class="priceText">£'+ obj["totalcash"] + '</p> </td><td class="tg-031e">'+ obj["orderday"] +'</td></tr>';
-				document.getElementById('form').innerHTML = formHTML; }
-			formHTML+='</table><br/><br/><table class="tg"><tr><th class="tg-031e">Absolute Total Cash Taken</th><tr><td class="tg-031e"><p class="priceText">£'+ totalcount + '</p></td></tr></table>';
-			document.getElementById('form').innerHTML = formHTML; 
 		
-        }
 	}
 	else{
 		var formHTML = '<h2 id="header">Click on the links to the left to do different tasks</h2>';
